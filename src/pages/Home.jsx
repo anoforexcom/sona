@@ -15,6 +15,7 @@ import {
   InputAdornment,
   useMediaQuery,
   useTheme,
+  Avatar,
 } from '@mui/material';
 import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
@@ -59,6 +60,19 @@ const Home = () => {
 
     fetchBarbershops();
   }, [cityFilter, nameFilter]);
+
+  const testimonials = [
+    { id: 1, name: "Alex Johnson", comment: "Best haircut I've ever had! The service was impeccable.", avatar: "https://i.pravatar.cc/150?img=1" },
+    { id: 2, name: "Michael Smith", comment: "Sona made booking so easy. Highly recommended!", avatar: "https://i.pravatar.cc/150?img=2" },
+    { id: 3, name: "Sarah Williams", comment: "Great atmosphere and professional barbers.", avatar: "https://i.pravatar.cc/150?img=3" },
+    { id: 4, name: "David Brown", comment: "I love the convenience of finding a shop near me.", avatar: "https://i.pravatar.cc/150?img=4" },
+    { id: 5, name: "Emily Davis", comment: "Premium experience from start to finish.", avatar: "https://i.pravatar.cc/150?img=5" },
+    { id: 6, name: "James Wilson", comment: "Finally, an app that actually works for booking appointments.", avatar: "https://i.pravatar.cc/150?img=6" },
+    { id: 7, name: "Jessica Garcia", comment: "My barber was amazing, will definitely return.", avatar: "https://i.pravatar.cc/150?img=7" },
+    { id: 8, name: "Robert Miller", comment: "Clean, modern, and efficient. 5 stars.", avatar: "https://i.pravatar.cc/150?img=8" },
+    { id: 9, name: "Lisa Martinez", comment: "The dark mode design of this site is sleek!", avatar: "https://i.pravatar.cc/150?img=9" },
+    { id: 10, name: "William Anderson", comment: "Booking took less than a minute. Fantastic.", avatar: "https://i.pravatar.cc/150?img=10" }
+  ];
 
   return (
     <Box sx={{ minHeight: '100vh', bgcolor: 'background.default' }}>
@@ -302,24 +316,54 @@ const Home = () => {
         </Grid>
       </Container>
 
-      {/* Testimonials Section (Preview) */}
-      <Box sx={{ py: 12, bgcolor: 'rgba(255, 255, 255, 0.02)' }}>
-        <Container>
-          <Box sx={{ textAlign: 'center', mb: 8 }}>
-            <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>What Our Clients Say</Typography>
-            <Button component={Link} to="/reviews" color="primary">View All 50+ Reviews</Button>
-          </Box>
-          <Grid container spacing={3}>
-            {[1, 2, 3].map((i) => (
-              <Grid item xs={12} md={4} key={i}>
-                <Paper sx={{ p: 3, borderRadius: '24px', bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)' }}>
-                  <Typography variant="body1" sx={{ fontStyle: 'italic', mb: 2 }}>"The best booking experience I've ever had. Highly recommended!"</Typography>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'primary.main' }}>Client {i}</Typography>
-                </Paper>
-              </Grid>
-            ))}
-          </Grid>
+      {/* Scrolling Testimonials Section */}
+      <Box sx={{ py: 12, bgcolor: 'rgba(255, 255, 255, 0.02)', overflow: 'hidden' }}>
+        <Container maxWidth="xl" sx={{ textAlign: 'center', mb: 8 }}>
+          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>What Our Clients Say</Typography>
+          <Button component={Link} to="/reviews" color="primary">View All 50+ Reviews</Button>
         </Container>
+
+        <Box sx={{
+          display: 'flex',
+          width: 'max-content',
+          animation: 'scroll 60s linear infinite',
+          '&:hover': { animationPlayState: 'paused' },
+          '@keyframes scroll': {
+            '0%': { transform: 'translateX(0)' },
+            '100%': { transform: 'translateX(-50%)' }
+          }
+        }}>
+          {[...Array(2)].map((_, i) => (
+            <Box key={i} sx={{ display: 'flex', gap: 4, px: 2 }}>
+              {testimonials.slice(0, 10).map((t) => (
+                <Paper key={t.id} sx={{
+                  p: 3,
+                  minWidth: 350,
+                  maxWidth: 350,
+                  flexShrink: 0,
+                  borderRadius: '24px',
+                  bgcolor: 'rgba(255,255,255,0.02)',
+                  border: '1px solid rgba(255,255,255,0.05)',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  justifyContent: 'center',
+                  whiteSpace: 'normal'
+                }}>
+                  <Box sx={{ display: 'flex', alignItems: 'center', mb: 2 }}>
+                    <Avatar src={t.avatar} sx={{ width: 48, height: 48, mr: 2 }} />
+                    <Box sx={{ textAlign: 'left' }}>
+                      <Typography variant="subtitle1" sx={{ fontWeight: 700 }}>{t.name}</Typography>
+                      <Typography variant="caption" color="text.secondary">Verified Client</Typography>
+                    </Box>
+                  </Box>
+                  <Typography variant="body1" sx={{ fontStyle: 'italic', color: 'text.secondary' }}>
+                    "{t.comment}"
+                  </Typography>
+                </Paper>
+              ))}
+            </Box>
+          ))}
+        </Box>
       </Box>
 
       {/* FAQ Section (Preview) */}
