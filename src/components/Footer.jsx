@@ -61,52 +61,49 @@ const Footer = () => {
 
           {/* Links Sections - Simplified to 3 Columns */}
           <Grid item xs={12} lg={8}>
-            <Grid container spacing={4} justifyContent="flex-start">
-              {/* 2. Explore Column */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
-                  Explore
-                </Typography>
-                <Stack spacing={2}>
-                  {["Pricing", "Reviews", "FAQ", "Login", "Sign Up"].map((link) => (
-                    <Link
-                      key={link}
-                      component={RouterLink}
-                      to={link === "Reviews" ? "/reviews" : link === "FAQ" ? "/faq" : link === "Pricing" ? "/pricing" : link === "Login" ? "/login" : link === "Sign Up" ? "/signup" : "#"}
-                      underline="none"
-                      sx={{
-                        color: 'text.secondary',
-                        fontSize: '0.95rem',
-                        transition: 'color 0.2s',
-                        '&:hover': { color: 'primary.main' }
-                      }}
-                    >
-                      {link}
-                    </Link>
-                  ))}
-                </Stack>
+            <Grid container spacing={4}>
+              {/* 2. Explore Column - Centered */}
+              <Grid item xs={12} sm={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', sm: 'center' } }}>
+                <Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
+                    Explore
+                  </Typography>
+                  <Stack spacing={2}>
+                    {["Pricing", "Reviews", "FAQ", "Login", "Sign Up"].map((link) => (
+                      <Link
+                        key={link}
+                        component={RouterLink}
+                        to={link === "Reviews" ? "/reviews" : link === "FAQ" ? "/faq" : link === "Pricing" ? "/pricing" : link === "Login" ? "/login" : link === "Sign Up" ? "/signup" : "#"}
+                        underline="none"
+                        sx={{
+                          color: 'text.secondary',
+                          fontSize: '0.95rem',
+                          transition: 'color 0.2s',
+                          '&:hover': { color: 'primary.main' }
+                        }}
+                      >
+                        {link}
+                      </Link>
+                    ))}
+                  </Stack>
+                </Box>
               </Grid>
 
-              {/* 3. Legal & Connect Column */}
-              <Grid item xs={12} sm={6} md={4}>
-                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
-                  Legal & Connect
-                </Typography>
-                <Stack spacing={2}>
-                  <Link component={RouterLink} to="/terms-of-service" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main' } }}>
-                    Terms of Service
-                  </Link>
-                  <Link component={RouterLink} to="/privacy-policy" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main' } }}>
-                    Privacy Policy
-                  </Link>
-                  <Box sx={{ pt: 2, display: 'flex', gap: 1 }}>
-                    {[FacebookIcon, TwitterIcon, InstagramIcon, LinkedInIcon].map((Icon, i) => (
-                      <IconButton key={i} size="small" sx={{ color: 'text.secondary', border: '1px solid rgba(255,255,255,0.1)', '&:hover': { color: 'white', bgcolor: 'primary.main', borderColor: 'primary.main' } }}>
-                        <Icon fontSize="small" />
-                      </IconButton>
-                    ))}
-                  </Box>
-                </Stack>
+              {/* 3. Legal & Connect Column - Right Aligned */}
+              <Grid item xs={12} sm={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', sm: 'flex-end' } }}>
+                <Box>
+                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem', textAlign: { xs: 'left', sm: 'right' } }}>
+                    Legal
+                  </Typography>
+                  <Stack spacing={2} alignItems={{ xs: 'flex-start', sm: 'flex-end' }}>
+                    <Link component={RouterLink} to="/terms-of-service" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main' } }}>
+                      Terms of Service
+                    </Link>
+                    <Link component={RouterLink} to="/privacy-policy" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main' } }}>
+                      Privacy Policy
+                    </Link>
+                  </Stack>
+                </Box>
               </Grid>
             </Grid>
           </Grid>

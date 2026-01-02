@@ -184,6 +184,79 @@ const Home = () => {
         </Container>
       </Box>
 
+      {/* Value Proposition Section */}
+      <Container sx={{ py: 12 }}>
+        <Box sx={{ textAlign: 'center', mb: 10 }}>
+          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>
+            The New Standard in Grooming
+          </Typography>
+          <Typography variant="h6" sx={{ color: 'text.secondary', maxWidth: '800px', mx: 'auto' }}>
+            Whether you're looking for a fresh cut or managing a busy shop, Sona elevates the experience.
+          </Typography>
+        </Box>
+
+        <Grid container spacing={4}>
+          {/* For Clients */}
+          <Grid item xs={12} md={6}>
+            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400, transform: 'scale(0.98)', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1)' } }}>
+              <Box
+                component="img"
+                src="https://images.unsplash.com/photo-1599351431202-6e0005fc6df5?q=80&w=2070&auto=format&fit=crop"
+                alt="Client experience"
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
+              />
+              <Box sx={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                p: { xs: 4, md: 6 },
+                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%)'
+              }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: 'white' }}>For Clients</Typography>
+                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', mb: 3 }}>
+                  Find top-rated barbers near you, check real reviews, and book instantly. No phone calls, no waiting.
+                </Typography>
+                <Button component={Link} to="/signup" variant="outlined" sx={{ color: 'white', borderColor: 'white', '&:hover': { bgcolor: 'white', color: 'black' }, width: 'fit-content' }}>
+                  Book Now
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+
+          {/* For Barbershops */}
+          <Grid item xs={12} md={6}>
+            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400, transform: 'scale(0.98)', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1)' } }}>
+              <Box
+                component="img"
+                src="https://images.unsplash.com/photo-1585747833206-75b1d8a1d4b3?q=80&w=2070&auto=format&fit=crop"
+                alt="Barbershop management"
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
+              />
+              <Box sx={{
+                position: 'absolute',
+                inset: 0,
+                display: 'flex',
+                flexDirection: 'column',
+                justifyContent: 'flex-end',
+                p: { xs: 4, md: 6 },
+                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%)'
+              }}>
+                <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: 'white' }}>For Barbershops</Typography>
+                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', mb: 3 }}>
+                  Streamline your schedule, grow your clientele, and reduce no-shows. Manage your business from anywhere.
+                </Typography>
+                <Button component={Link} to="/signup" variant="outlined" sx={{ color: 'white', borderColor: 'white', '&:hover': { bgcolor: 'white', color: 'black' }, width: 'fit-content' }}>
+                  Register Shop
+                </Button>
+              </Box>
+            </Box>
+          </Grid>
+        </Grid>
+      </Container>
+
+
       {/* Barbershop Listing Section */}
       <Container id="listings" sx={{ py: 12 }}>
         <Box sx={{ mb: 10, textAlign: 'center' }}>
