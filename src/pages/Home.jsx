@@ -198,12 +198,12 @@ const Home = () => {
         <Grid container spacing={4}>
           {/* For Clients */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400, transform: 'scale(0.98)', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1)' } }}>
+            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400 }}>
               <Box
                 component="img"
                 src="https://images.unsplash.com/photo-1599351431202-6e0005fc6df5?q=80&w=2070&auto=format&fit=crop"
                 alt="Client experience"
-                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }}
               />
               <Box sx={{
                 position: 'absolute',
@@ -212,7 +212,8 @@ const Home = () => {
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 p: { xs: 4, md: 6 },
-                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%)'
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)',
+                zIndex: 2
               }}>
                 <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: 'white' }}>For Clients</Typography>
                 <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', mb: 3 }}>
@@ -227,12 +228,12 @@ const Home = () => {
 
           {/* For Barbershops */}
           <Grid item xs={12} md={6}>
-            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400, transform: 'scale(0.98)', transition: 'transform 0.3s', '&:hover': { transform: 'scale(1)' } }}>
+            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400 }}>
               <Box
                 component="img"
                 src="https://images.unsplash.com/photo-1585747833206-75b1d8a1d4b3?q=80&w=2070&auto=format&fit=crop"
                 alt="Barbershop management"
-                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.7)' }}
+                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }}
               />
               <Box sx={{
                 position: 'absolute',
@@ -241,7 +242,8 @@ const Home = () => {
                 flexDirection: 'column',
                 justifyContent: 'flex-end',
                 p: { xs: 4, md: 6 },
-                background: 'linear-gradient(to top, rgba(0,0,0,0.9) 0%, transparent 80%)'
+                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)',
+                zIndex: 2
               }}>
                 <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: 'white' }}>For Barbershops</Typography>
                 <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', mb: 3 }}>
