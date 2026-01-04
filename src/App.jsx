@@ -6,6 +6,7 @@ import { AuthProvider } from './contexts/AuthContext.jsx';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import SignUp from './pages/SignUp.jsx';
+import Barbershops from './pages/Barbershops.jsx';
 import BarbershopDetails from './pages/BarbershopDetails.jsx';
 import UserProfile from './pages/UserProfile.jsx';
 
@@ -78,6 +79,7 @@ function App() {
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
         <Route path="/signup" element={<SignUp />} />
+        <Route path="/barbershops" element={<Barbershops />} />
         <Route path="/barbershop/:barbershopId" element={<BarbershopDetails />} />
         <Route path="/faq" element={<FAQ />} />
         <Route path="/pricing" element={<Pricing />} />

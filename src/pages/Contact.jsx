@@ -1,5 +1,5 @@
 import React from 'react';
-import { Box, Container, Typography, Grid, TextField, Button, Paper, InputAdornment, Stack, IconButton } from '@mui/material';
+import { Box, Container, Typography, Grid, TextField, Button, Paper, InputAdornment, Stack, IconButton, MenuItem } from '@mui/material';
 import EmailIcon from '@mui/icons-material/Email';
 import PhoneIcon from '@mui/icons-material/Phone';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
@@ -77,41 +77,43 @@ const Contact = () => {
                         <Paper elevation={24} sx={{
                             p: { xs: 4, sm: 6 },
                             borderRadius: '40px',
-                            background: 'linear-gradient(145deg, rgba(23, 23, 26, 0.9) 0%, rgba(10, 10, 11, 0.95) 100%)',
+                            background: 'linear-gradient(145deg, rgba(23, 23, 26, 0.6) 0%, rgba(10, 10, 11, 0.8) 100%)', // More transparency for aesthetics
                             border: '1px solid rgba(255, 255, 255, 0.08)',
-                            backdropFilter: 'blur(20px)',
+                            backdropFilter: 'blur(40px)', // Stronger blur
                             boxShadow: '0 40px 100px -20px rgba(0,0,0,0.5)'
                         }}>
                             <Box component="form" noValidate autoComplete="off">
+                                <Box sx={{ mb: 4, textAlign: 'left' }}>
+                                    <Typography variant="h5" sx={{ fontWeight: 800, color: 'white', mb: 1 }}>Send us a message</Typography>
+                                    <Typography variant="body2" color="text.secondary">We typically reply within 2 hours.</Typography>
+                                </Box>
+
                                 <Grid container spacing={3}>
                                     <Grid item xs={12} sm={6}>
                                         <CustomTextField
-                                            fullWidth
                                             placeholder="First Name"
-                                            icon={<PersonIcon />}
+                                            icon={<PersonIcon fontSize="small" />}
                                         />
                                     </Grid>
                                     <Grid item xs={12} sm={6}>
                                         <CustomTextField
-                                            fullWidth
                                             placeholder="Last Name"
-                                            icon={<PersonIcon />}
+                                            icon={<PersonIcon fontSize="small" />}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <CustomTextField
-                                            fullWidth
                                             placeholder="Email Address"
                                             type="email"
-                                            icon={<EmailIcon />}
+                                            icon={<EmailIcon fontSize="small" />}
                                         />
                                     </Grid>
                                     <Grid item xs={12}>
                                         <CustomTextField
-                                            fullWidth
                                             select
-                                            placeholder="Subject"
-                                            icon={<SubjectIcon />}
+                                            defaultValue=""
+                                            placeholder="Select Subject"
+                                            icon={<SubjectIcon fontSize="small" />}
                                             options={[
                                                 { value: '', label: 'Select a Subject', disabled: true },
                                                 { value: 'support', label: 'Customer Support' },
@@ -122,11 +124,10 @@ const Contact = () => {
                                     </Grid>
                                     <Grid item xs={12}>
                                         <CustomTextField
-                                            fullWidth
                                             placeholder="Your Message..."
                                             multiline
-                                            rows={5}
-                                            icon={<MessageIcon />}
+                                            rows={4}
+                                            icon={<MessageIcon fontSize="small" />}
                                             alignIconTop
                                         />
                                     </Grid>
@@ -137,16 +138,17 @@ const Contact = () => {
                                             variant="contained"
                                             size="large"
                                             sx={{
-                                                py: 2.5,
+                                                py: 2,
                                                 mt: 2,
                                                 borderRadius: '16px',
-                                                fontSize: '1.1rem',
+                                                fontSize: '1rem',
                                                 fontWeight: 700,
                                                 background: 'linear-gradient(135deg, #3B82F6 0%, #2563EB 100%)',
-                                                boxShadow: '0 10px 30px -10px rgba(59, 130, 246, 0.6)',
+                                                boxShadow: '0 8px 20px -4px rgba(59, 130, 246, 0.5)',
+                                                textTransform: 'none',
                                                 '&:hover': {
                                                     transform: 'translateY(-2px)',
-                                                    boxShadow: '0 20px 40px -10px rgba(59, 130, 246, 0.8)',
+                                                    boxShadow: '0 12px 24px -4px rgba(59, 130, 246, 0.6)',
                                                 },
                                                 transition: 'all 0.3s ease'
                                             }}
@@ -165,49 +167,75 @@ const Contact = () => {
 };
 
 // Reusable styled component for consistent premium look
+// Improved CustomTextField with better spacing and standard MUI Select
 const CustomTextField = ({ icon, select, options, alignIconTop, ...props }) => {
     return (
         <TextField
             {...props}
             select={select}
-            SelectProps={select ? { native: true } : undefined}
-            variant="outlined"
+            variant="filled"
+            fullWidth
             InputProps={{
+                disableUnderline: true,
                 startAdornment: (
-                    <InputAdornment position="start" sx={{ mb: alignIconTop ? 14 : 0, color: 'text.secondary' }}>
+                    <InputAdornment position="start" sx={{ mt: alignIconTop ? '16px' : 0, alignSelf: alignIconTop ? 'flex-start' : 'center', color: 'text.secondary' }}>
                         {icon}
                     </InputAdornment>
                 ),
                 sx: {
-                    bgcolor: 'rgba(255, 255, 255, 0.03)',
                     borderRadius: '16px',
+                    bgcolor: 'rgba(255, 255, 255, 0.03)',
+                    border: '1px solid rgba(255, 255, 255, 0.05)',
+                    transition: 'all 0.2s ease-in-out',
                     color: 'white',
-                    fontSize: '1rem',
-                    transition: 'all 0.2s',
-                    border: '1px solid transparent',
                     '&:hover': {
-                        bgcolor: 'rgba(255, 255, 255, 0.05)',
-                        borderColor: 'rgba(255, 255, 255, 0.1)'
+                        bgcolor: 'rgba(255, 255, 255, 0.06)',
+                        borderColor: 'rgba(255, 255, 255, 0.1)',
                     },
                     '&.Mui-focused': {
                         bgcolor: 'rgba(255, 255, 255, 0.03)',
-                        borderColor: 'primary.main',
-                        boxShadow: '0 0 0 2px rgba(59, 130, 246, 0.2)'
+                        borderColor: '#3B82F6',
+                        boxShadow: '0 0 0 4px rgba(59, 130, 246, 0.15)',
                     },
-                    '& fieldset': { border: 'none' }, // Remove default Material UI border
-                    py: 1.5,
-                    px: 2
+                    p: 0,
+                    overflow: 'hidden'
+                },
+                ...props.InputProps
+            }}
+            // Correctly handle select spacing
+            SelectProps={{
+                MenuProps: {
+                    PaperProps: {
+                        sx: {
+                            bgcolor: '#18181b', // Dark background for dropdown
+                            border: '1px solid rgba(255,255,255,0.1)',
+                            borderRadius: '12px',
+                            '& .MuiMenuItem-root': {
+                                py: 1.5,
+                                '&:hover': { bgcolor: 'rgba(59, 130, 246, 0.1)' },
+                                '&.Mui-selected': { bgcolor: 'rgba(59, 130, 246, 0.2) !important' }
+                            }
+                        }
+                    }
                 }
             }}
             sx={{
-                '& .MuiInputBase-root': { padding: 0 } // Reset padding to handle inner sx better
+                '& .MuiFilledInput-root': {
+                    paddingTop: '16px', // Restore standard padding
+                    paddingBottom: '16px',
+                    paddingLeft: '12px',
+                },
+                '& .MuiFilledInput-input': {
+                    paddingTop: '0',
+                    paddingBottom: '0'
+                }
             }}
         >
             {select && options ? (
                 options.map((option) => (
-                    <option key={option.value} value={option.value} disabled={option.disabled}>
+                    <MenuItem key={option.value} value={option.value} disabled={option.disabled} sx={{ color: option.disabled ? 'text.disabled' : 'text.primary' }}>
                         {option.label}
-                    </option>
+                    </MenuItem>
                 ))
             ) : null}
         </TextField>

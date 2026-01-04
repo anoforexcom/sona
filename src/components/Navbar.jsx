@@ -22,6 +22,7 @@ import {
   alpha
 } from '@mui/material';
 import MenuIcon from '@mui/icons-material/Menu';
+import SearchIcon from '@mui/icons-material/Search';
 import DashboardIcon from '@mui/icons-material/Dashboard';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import StorefrontIcon from '@mui/icons-material/Storefront';
@@ -57,6 +58,7 @@ const Navbar = () => {
         { text: 'Pricing', link: '/pricing' },
         { text: 'FAQ', link: '/faq' },
         { text: 'Contact', link: '/contact' },
+        { text: 'Explore', icon: <SearchIcon />, link: '/barbershops' },
         { text: 'Login', icon: <LockOpenIcon />, link: '/login' },
         { text: 'List Barbershop', icon: <StorefrontIcon />, link: '/signup', variant: 'contained' },
       ];
@@ -85,6 +87,7 @@ const Navbar = () => {
         return [
           { text: 'Dashboard', icon: <DashboardIcon />, link: '/dashboard' },
           { text: 'My Appointments', icon: <CalendarMonthIcon />, link: '/my-appointments' },
+          { text: 'Explore', icon: <SearchIcon />, link: '/barbershops' },
           ...baseUserMenu
         ];
     }

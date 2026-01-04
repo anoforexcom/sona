@@ -187,10 +187,23 @@ const Home = () => {
       </Box>
 
       {/* Features Section */}
-      <Container sx={{ py: { xs: 8, md: 12 } }}>
-        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 8 } }}>
-          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '2rem', md: '3rem' } }}>Why Choose Sona?</Typography>
-          <Typography variant="h6" color="text.secondary">Experience the future of grooming.</Typography>
+      <Container sx={{ py: { xs: 8, md: 12 }, position: 'relative' }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}>
+          <Box sx={{
+            display: 'inline-block',
+            px: 2,
+            py: 0.5,
+            mb: 3,
+            borderRadius: '20px',
+            bgcolor: 'rgba(59, 130, 246, 0.1)',
+            border: '1px solid rgba(59, 130, 246, 0.2)'
+          }}>
+            <Typography variant="caption" sx={{ color: '#3B82F6', fontWeight: 700, letterSpacing: '1px' }}>
+              THE SONA ADVANTAGE
+            </Typography>
+          </Box>
+          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '2rem', md: '3.5rem' } }}>Why Choose Sona?</Typography>
+          <Typography variant="h6" color="text.secondary" sx={{ maxWidth: '600px', mx: 'auto' }}>Experience the future of grooming with our cutting-edge platform.</Typography>
         </Box>
         <Grid container spacing={4}>
           {[
@@ -200,80 +213,185 @@ const Home = () => {
             { title: "Cashless Payment", desc: "Pay securely within the app.", icon: "💳" }
           ].map((feature, index) => (
             <Grid item xs={12} sm={6} md={3} key={index}>
-              <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%', borderRadius: '24px', bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', transition: 'transform 0.2s', '&:hover': { transform: 'translateY(-5px)' } }}>
-                <Typography variant="h2" sx={{ mb: 2 }}>{feature.icon}</Typography>
-                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{feature.title}</Typography>
-                <Typography variant="body2" color="text.secondary">{feature.desc}</Typography>
+              <Paper sx={{
+                p: { xs: 4, md: 5 },
+                height: '100%',
+                borderRadius: '32px',
+                bgcolor: 'rgba(255,255,255,0.02)',
+                border: '1px solid rgba(255,255,255,0.05)',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                textAlign: 'center', // Centered text
+                transition: 'all 0.3s ease',
+                cursor: 'default',
+                '&:hover': {
+                  transform: 'translateY(-8px)',
+                  bgcolor: 'rgba(255,255,255,0.04)',
+                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
+                  borderColor: 'rgba(59, 130, 246, 0.3)'
+                }
+              }}>
+                <Box sx={{
+                  width: 56,
+                  height: 56,
+                  borderRadius: '16px',
+                  bgcolor: 'rgba(59, 130, 246, 0.1)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  mb: 3,
+                  fontSize: '1.5rem',
+                  mx: 'auto' // Added mx auto
+                }}>
+                  {feature.icon}
+                </Box>
+                <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>{feature.title}</Typography>
+                <Typography variant="body1" color="text.secondary" sx={{ lineHeight: 1.7 }}>{feature.desc}</Typography>
               </Paper>
             </Grid>
           ))}
         </Grid>
       </Container>
 
-      {/* Value Proposition Section (Refactored for robustness) */}
-      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(255,255,255,0.02)' }}>
-        <Container>
-          <Grid container spacing={{ xs: 6, md: 8 }} alignItems="center">
+      {/* Value Proposition Section */}
+      <Box sx={{ py: { xs: 8, md: 16 }, bgcolor: '#0A0A0B', position: 'relative', overflow: 'hidden' }}>
+        {/* Background Gradients */}
+        <Box sx={{ position: 'absolute', top: 0, left: 0, width: '100%', height: '100%', background: 'radial-gradient(circle at 0% 0%, rgba(59, 130, 246, 0.05) 0%, transparent 50%)' }} />
+
+        <Container sx={{ position: 'relative', zIndex: 1 }}>
+          {/* Section 1: Clients */}
+          <Grid container spacing={{ xs: 8, md: 12 }} alignItems="center">
             <Grid item xs={12} md={6}>
               <Box
-                component="img"
-                src="https://images.unsplash.com/photo-1599351431202-6e0005fc6df5?q=80&w=2070&auto=format&fit=crop"
-                sx={{ width: '100%', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
-                alt="Client experience"
-              />
+                sx={{
+                  position: 'relative',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: -20,
+                    borderRadius: '40px',
+                    background: 'linear-gradient(45deg, #3B82F6 0%, transparent 100%)',
+                    opacity: 0.2,
+                    zIndex: -1
+                  }
+                }}
+              >
+                <Box
+                  component="img"
+                  src="https://images.unsplash.com/photo-1599351431202-6e0005fc6df5?q=80&w=2070&auto=format&fit=crop"
+                  sx={{ width: '100%', borderRadius: '32px', boxShadow: '0 40px 80px rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  alt="Client experience"
+                />
+              </Box>
             </Grid>
             <Grid item xs={12} md={6}>
-              <Typography variant="h3" sx={{ fontWeight: 800, mb: 3 }}>For Clients</Typography>
-              <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
+              <Box sx={{ display: 'inline-block', px: 2, py: 0.5, mb: 3, borderRadius: '20px', bgcolor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <Typography variant="caption" sx={{ color: 'white', fontWeight: 700, letterSpacing: '1px' }}>
+                  FOR CLIENTS
+                </Typography>
+              </Box>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 3, lineHeight: 1.1 }}>
+                Look Your Best,<br />
+                <Box component="span" sx={{ color: 'primary.main' }}>Without the Hassle.</Box>
+              </Typography>
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
                 Say goodbye to waiting on hold. Find the perfect barber, check their real-time availability, and book instantly.
                 Read verified reviews and browse portfolios to ensure you get the style you want.
               </Typography>
-              <Button component={Link} to="/signup" variant="contained" size="large" sx={{ px: 4, py: 1.5, borderRadius: '12px' }}>
+              <Button component={Link} to="/admin" variant="contained" size="large" sx={{ px: 5, py: 2, borderRadius: '16px', fontSize: '1.05rem', boxShadow: '0 8px 24px rgba(59, 130, 246, 0.4)' }}>
                 Book Your Cut
               </Button>
             </Grid>
           </Grid>
 
-          <Grid container spacing={8} alignItems="center" sx={{ mt: 8, flexDirection: { xs: 'column-reverse', md: 'row' } }}>
+          {/* Section 2: Barbershops */}
+          <Grid container spacing={{ xs: 8, md: 12 }} alignItems="center" sx={{ mt: { xs: 8, md: 16 }, flexDirection: { xs: 'column-reverse', md: 'row' } }}>
             <Grid item xs={12} md={6}>
-              <Typography variant="h3" sx={{ fontWeight: 800, mb: 3 }}>For Barbershops</Typography>
-              <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
+              <Box sx={{ display: 'inline-block', px: 2, py: 0.5, mb: 3, borderRadius: '20px', bgcolor: 'rgba(255, 255, 255, 0.05)', border: '1px solid rgba(255, 255, 255, 0.1)' }}>
+                <Typography variant="caption" sx={{ color: 'white', fontWeight: 700, letterSpacing: '1px' }}>
+                  FOR PARTNERS
+                </Typography>
+              </Box>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 3, lineHeight: 1.1 }}>
+                Grow Your Business,<br />
+                <Box component="span" sx={{ color: 'primary.main' }}>Simplify Your Life.</Box>
+              </Typography>
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6, fontWeight: 400 }}>
                 Stop chasing no-shows and managing a paper calendar. Sona gives you powerful tools to manage your schedule,
                 showcase your work, and grow your clientele effortlessly.
               </Typography>
-              <Button component={Link} to="/signup" variant="outlined" size="large" sx={{ px: 4, py: 1.5, borderRadius: '12px' }}>
-                Join as a Partner
+              <Button component={Link} to="/signup" variant="outlined" size="large" sx={{ px: 5, py: 2, borderRadius: '16px', fontSize: '1.05rem', borderColor: 'rgba(255,255,255,0.2)', color: 'white', '&:hover': { borderColor: 'primary.main', bgcolor: 'rgba(59, 130, 246, 0.05)' } }}>
+                Become a Partner
               </Button>
             </Grid>
             <Grid item xs={12} md={6}>
               <Box
-                component="img"
-                src="https://images.unsplash.com/photo-1585747833206-75b1d8a1d4b3?q=80&w=2070&auto=format&fit=crop"
-                sx={{ width: '100%', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
-                alt="Barbershop management"
-              />
+                sx={{
+                  position: 'relative',
+                  '&::before': {
+                    content: '""',
+                    position: 'absolute',
+                    inset: -20,
+                    borderRadius: '40px',
+                    background: 'linear-gradient(-45deg, #3B82F6 0%, transparent 100%)',
+                    opacity: 0.2,
+                    zIndex: -1
+                  }
+                }}
+              >
+                <Box
+                  component="img"
+                  src="https://images.unsplash.com/photo-1585747833206-75b1d8a1d4b3?q=80&w=2070&auto=format&fit=crop"
+                  sx={{ width: '100%', borderRadius: '32px', boxShadow: '0 40px 80px rgba(0,0,0,0.6)', border: '1px solid rgba(255,255,255,0.1)' }}
+                  alt="Barbershop management"
+                />
+              </Box>
             </Grid>
           </Grid>
         </Container>
       </Box>
 
       {/* How It Works Section */}
-      <Container sx={{ py: 12 }}>
-        <Box sx={{ textAlign: 'center', mb: 10 }}>
+      <Container sx={{ py: { xs: 8, md: 12 } }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 8, md: 10 } }}>
           <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>How It Works</Typography>
-          <Typography variant="h6" color="text.secondary">Simple steps to your best look.</Typography>
+          <Typography variant="h6" color="text.secondary">Your best look in three simple steps.</Typography>
         </Box>
         <Grid container spacing={4} sx={{ textAlign: 'center' }}>
           {[
-            { step: "01", title: "Search", desc: "Find top barbers in your area." },
-            { step: "02", title: "Choose", desc: "Select a time that works for you." },
-            { step: "03", title: "Book", desc: "Confirm instantly and relax." }
+            { step: "01", title: "Search", desc: "Discover top-rated barbers in your area." },
+            { step: "02", title: "Choose", desc: "Select services and a time that fits you." },
+            { step: "03", title: "Book", desc: "Confirm instantly. No phone calls needed." }
           ].map((item, index) => (
             <Grid item xs={12} sm={4} key={index}>
-              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
-                <Typography variant="h1" sx={{ color: 'rgba(255,255,255,0.1)', fontWeight: 900, fontSize: '6rem', lineHeight: 1 }}>{item.step}</Typography>
-                <Typography variant="h5" sx={{ fontWeight: 700, mt: -2, mb: 1, position: 'relative' }}>{item.title}</Typography>
-                <Typography color="text.secondary" sx={{ maxWidth: '250px' }}>{item.desc}</Typography>
+              <Box sx={{
+                p: 4,
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                position: 'relative'
+              }}>
+                <Typography variant="h1" sx={{
+                  color: 'rgba(255,255,255,0.03)',
+                  fontWeight: 900,
+                  fontSize: '8rem',
+                  lineHeight: 1,
+                  position: 'absolute',
+                  top: 0,
+                  left: 0,
+                  right: 0,
+                  width: '100%',
+                  textAlign: 'center',
+                  zIndex: 0
+                }}>
+                  {item.step}
+                </Typography>
+                <Box sx={{ position: 'relative', zIndex: 1, mt: 4, width: '100%', textAlign: 'center' }}>
+                  <Typography variant="h5" sx={{ fontWeight: 800, mb: 2 }}>{item.title}</Typography>
+                  <Typography color="text.secondary" sx={{ maxWidth: '250px', lineHeight: 1.6, mx: 'auto' }}>{item.desc}</Typography>
+                </Box>
               </Box>
             </Grid>
           ))}

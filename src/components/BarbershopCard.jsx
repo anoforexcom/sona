@@ -48,7 +48,9 @@ const BarbershopCard = ({ barbershop, isFavorite }) => {
                     borderRadius: '10px',
                     border: '1px solid rgba(255,255,255,0.1)'
                 }}>
-                    <Typography variant="caption" sx={{ color: 'white', fontWeight: 700 }}>PREMIUM</Typography>
+                    <Typography variant="caption" sx={{ color: 'white', fontWeight: 700 }}>
+                        {barbershop.priceRange || 'Prices Varies'}
+                    </Typography>
                 </Box>
                 {isFavorite && (
                     <Box sx={{
@@ -68,21 +70,28 @@ const BarbershopCard = ({ barbershop, isFavorite }) => {
             </Box>
             <CardContent sx={{ flexGrow: 1, p: 3 }}>
                 <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 1 }}>
-                    <Typography gutterBottom variant="h5" sx={{ fontWeight: 800, mb: 0.5, maxWidth: '70%' }}>
+                    <Typography gutterBottom variant="h5" sx={{ fontWeight: 800, mb: 0.5, maxWidth: '100%' }}>
                         {barbershop.name}
                     </Typography>
-                    <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-end' }}>
-                        <Rating value={5} readOnly size="small" sx={{ color: '#F59E0B' }} />
-                        <Typography variant="caption" color="text.secondary">5.0 (120)</Typography>
-                    </Box>
                 </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary', gap: 1, mb: 2 }}>
                     <LocationCityIcon sx={{ fontSize: '1.2rem', color: 'primary.main' }} />
                     <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                        {barbershop.city}
+                        {barbershop.city || 'Location Unknown'}
                     </Typography>
                 </Box>
+
+                <Typography variant="body2" color="text.secondary" sx={{
+                    mb: 2,
+                    display: '-webkit-box',
+                    overflow: 'hidden',
+                    WebkitBoxOrient: 'vertical',
+                    WebkitLineClamp: 3,
+                    opacity: 0.8
+                }}>
+                    {barbershop.description || 'No description available for this barbershop.'}
+                </Typography>
 
                 <Box sx={{ display: 'flex', gap: 1, flexWrap: 'wrap' }}>
                     {['Haircut', 'Beard', 'Styling'].map(tag => (

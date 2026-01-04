@@ -123,6 +123,26 @@ const OwnerServices = () => {
         }
     };
 
+    const updateBarbershopPrices = async (currentServices) => {
+        if (!barbershopId || currentServices.length === 0) return;
+
+        const prices = currentServices.map(s => Number(s.price)).filter(p => !isNaN(p));
+        if (prices.length === 0) return;
+
+        const minPrice = Math.min(...prices);
+        const maxPrice = Math.max(...prices);
+
+        try {
+            await updateDoc(doc(db, 'barbershops', barbershopId), {
+                minPrice,
+                maxPrice,
+                priceRange: minPrice === maxPrice ? `$${minPrice}` : `$${minPrice} - $${maxPrice}`
+            });
+        } catch (err) {
+            console.error("Error updating barbershop prices:", err);
+        }
+    };
+
     const handleSave = async () => {
         if (!formState.name || !formState.duration || !formState.price) {
             // Basic validation
@@ -159,14 +179,20 @@ const OwnerServices = () => {
             };
 
             const servicesRef = collection(db, 'barbershops', barbershopId, 'services');
+            let updatedServicesList = [];
 
             if (currentService) {
                 await updateDoc(doc(servicesRef, currentService.id), serviceData);
-                setServices(prev => prev.map(s => s.id === currentService.id ? { ...s, id: s.id, ...serviceData } : s));
+                updatedServicesList = services.map(s => s.id === currentService.id ? { ...s, id: s.id, ...serviceData } : s);
+                setServices(updatedServicesList);
             } else {
                 const docRef = await addDoc(servicesRef, { ...serviceData, createdAt: new Date() });
-                setServices(prev => [...prev, { id: docRef.id, ...serviceData }]);
+                updatedServicesList = [...services, { id: docRef.id, ...serviceData }];
+                setServices(updatedServicesList);
             }
+
+            // Update parent document with new price range
+            await updateBarbershopPrices(updatedServicesList);
 
             handleClose();
         } catch (err) {
@@ -181,7 +207,11 @@ const OwnerServices = () => {
         if (!window.confirm("Delete this service?")) return;
         try {
             await deleteDoc(doc(db, 'barbershops', barbershopId, 'services', serviceId));
-            setServices(prev => prev.filter(s => s.id !== serviceId));
+            const updatedServicesList = services.filter(s => s.id !== serviceId);
+            setServices(updatedServicesList);
+
+            // Update parent document with new price range
+            await updateBarbershopPrices(updatedServicesList);
         } catch (err) {
             console.error("Error deleting service:", err);
             alert("Failed to delete service.");

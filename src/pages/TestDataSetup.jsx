@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { auth, db } from '../firebase';
 import { createUserWithEmailAndPassword, signInWithEmailAndPassword, signOut } from 'firebase/auth';
-import { doc, setDoc } from 'firebase/firestore';
-import { Box, Button, Typography, Container, Alert, CircularProgress, Paper } from '@mui/material';
+import { doc, setDoc, addDoc, collection } from 'firebase/firestore';
+import { Box, Button, Typography, Container, Alert, CircularProgress, Paper, Divider } from '@mui/material';
+import StorefrontIcon from '@mui/icons-material/Storefront';
+import PersonAddIcon from '@mui/icons-material/PersonAdd';
 
 const TestDataSetup = () => {
     const [status, setStatus] = useState('');
@@ -78,16 +80,79 @@ const TestDataSetup = () => {
         }
     };
 
+    const handleGenerateBarbershop = async () => {
+        setLoading(true);
+        setStatus('Creating Test Barbershop...');
+        setError('');
+
+        try {
+            // 1. Sign in as Owner to link data correctly
+            await signOut(auth);
+            await signInWithEmailAndPassword(auth, 'owner2@sona.com', 'password123');
+            const ownerId = auth.currentUser.uid;
+
+            // 2. Barbershop Data
+            const shopData = {
+                ownerId: ownerId,
+                name: "Sona Lounge Lisbon",
+                city: "Lisbon",
+                address: "Rua Augusta, 100",
+                phone: "+351 912 345 678",
+                description: "Experience the finest grooming in Lisbon. We combine traditional techniques with modern style to give you the perfect look. Our master barbers are dedicated to providing the best service.",
+                imageUrl: "https://images.unsplash.com/photo-1585747860715-2ba37e788b70?q=80&w=2074&auto=format&fit=crop",
+                approved: true,
+                rating: 4.8,
+                reviewCount: 15,
+                minPrice: 20,
+                maxPrice: 50,
+                priceRange: "$20 - $50",
+                createdAt: new Date(),
+                settings: {
+                    currency: 'EUR',
+                    cancellationPolicy: '24h'
+                },
+                gallery: [
+                    "https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop",
+                    "https://images.unsplash.com/photo-1621609764180-2ca554a9d6f2?q=80&w=1974&auto=format&fit=crop"
+                ]
+            };
+
+            const shopRef = await addDoc(collection(db, 'barbershops'), shopData);
+
+            // 3. Add Services
+            const servicesRef = collection(db, 'barbershops', shopRef.id, 'services');
+
+            const services = [
+                { name: "Classic Haircut", duration: "30", price: "20", description: "Traditional scissor cut." },
+                { name: "Beard Trim", duration: "20", price: "15", description: "Shape up and trim." },
+                { name: "Full Service", duration: "60", price: "50", description: "Haircut + Beard + Hot Towel." }
+            ];
+
+            for (const service of services) {
+                await addDoc(servicesRef, service);
+            }
+
+            await signOut(auth); // Sign out after creation
+            setStatus('Test Barbershop "Sona Lounge Lisbon" Created Successfully!');
+            setLoading(false);
+
+        } catch (err) {
+            console.error(err);
+            setError(`Error: ${err.message}`);
+            setLoading(false);
+        }
+    };
+
     return (
         <Container maxWidth="sm" sx={{ py: 10 }}>
             <Paper sx={{ p: 4, borderRadius: 2 }}>
                 <Typography variant="h4" gutterBottom>Test Data Setup</Typography>
                 <Typography variant="body1" sx={{ mb: 4, color: 'text.secondary' }}>
-                    Click the button below to generate NEW standard test accounts (V2).
+                    Generate accounts and data to test the platform.
                 </Typography>
 
                 <Box sx={{ mb: 4, bgcolor: 'background.default', p: 2, borderRadius: 1 }}>
-                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>New Accounts to be created:</Typography>
+                    <Typography variant="subtitle2" sx={{ fontWeight: 'bold' }}>Test Accounts:</Typography>
                     <ul style={{ margin: 0, paddingLeft: '1.2rem' }}>
                         <li><strong>Admin:</strong> admin2@sona.com (password123)</li>
                         <li><strong>Owner:</strong> owner2@sona.com (password123)</li>
@@ -98,16 +163,29 @@ const TestDataSetup = () => {
                 {error && <Alert severity="error" sx={{ mb: 3 }}>{error}</Alert>}
                 {status && !error && <Alert severity={loading ? "info" : "success"} sx={{ mb: 3 }}>{status}</Alert>}
 
-                <Button
-                    variant="contained"
-                    fullWidth
-                    size="large"
-                    onClick={handleGenerateAccounts}
-                    disabled={loading}
-                    startIcon={loading && <CircularProgress size={20} color="inherit" />}
-                >
-                    {loading ? 'Generating...' : 'Generate Test Accounts'}
-                </Button>
+                <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+                    <Button
+                        variant="outlined"
+                        fullWidth
+                        size="large"
+                        onClick={handleGenerateAccounts}
+                        disabled={loading}
+                        startIcon={<PersonAddIcon />}
+                    >
+                        {loading ? 'Processing...' : '1. Generate Test Accounts'}
+                    </Button>
+
+                    <Button
+                        variant="contained"
+                        fullWidth
+                        size="large"
+                        onClick={handleGenerateBarbershop}
+                        disabled={loading}
+                        startIcon={<StorefrontIcon />}
+                    >
+                        {loading ? 'Processing...' : '2. Generate Test Barbershop'}
+                    </Button>
+                </Box>
             </Paper>
         </Container>
     );
