@@ -35,7 +35,7 @@ import BuildIcon from '@mui/icons-material/Build';
 import AccountCircleIcon from '@mui/icons-material/AccountCircle';
 
 const Navbar = () => {
-  const { currentUser } = useAuth();
+  const { currentUser, userRole } = useAuth();
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
@@ -54,10 +54,11 @@ const Navbar = () => {
   const getMenuItems = () => {
     if (!currentUser) {
       return [
-        { text: 'List Your Barbershop', icon: <StorefrontIcon />, link: '/signup' },
-        { text: 'Pricing', icon: <ContentCutIcon />, link: '/pricing' },
+        { text: 'Pricing', link: '/pricing' },
+        { text: 'FAQ', link: '/faq' },
+        { text: 'Contact', link: '/contact' },
         { text: 'Login', icon: <LockOpenIcon />, link: '/login' },
-        { text: 'Sign Up', icon: <PersonAddIcon />, link: '/signup', variant: 'contained' },
+        { text: 'List Barbershop', icon: <StorefrontIcon />, link: '/signup', variant: 'contained' },
       ];
     }
 
@@ -66,7 +67,7 @@ const Navbar = () => {
       { text: 'Logout', icon: <ExitToAppIcon />, action: handleLogout },
     ];
 
-    switch (currentUser.role) {
+    switch (userRole) {
       case 'admin':
         return [
           { text: 'Admin Dashboard', icon: <AdminPanelSettingsIcon />, link: '/admin-dashboard' },
@@ -92,16 +93,21 @@ const Navbar = () => {
   const menuItems = getMenuItems();
 
   const drawer = (
-    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', width: 250, bgcolor: 'background.paper', height: '100%' }}>
+    <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center', width: '100%', bgcolor: 'background.paper', height: '100%' }}>
       <Box sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'center', backgroundColor: 'secondary.main', color: 'white' }}>
         <ContentCutIcon sx={{ mr: 1 }} />
-        <Typography variant="h6">Barber Booking</Typography>
+        <Typography variant="h6" fontWeight="bold">Sona</Typography>
       </Box>
       <Divider />
       <List>
         {menuItems.map((item) => (
           <ListItem key={item.text} disablePadding>
-            <ListItemButton component={item.link ? Link : 'button'} to={item.link} onClick={item.action}>
+            <ListItemButton
+              component={item.link ? Link : 'button'}
+              to={item.link}
+              onClick={item.action}
+              sx={{ py: 1.5 }}
+            >
               <ListItemIcon sx={{ color: 'text.primary' }}>{item.icon}</ListItemIcon>
               <ListItemText primary={item.text} />
             </ListItemButton>

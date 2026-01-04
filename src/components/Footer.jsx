@@ -21,9 +21,9 @@ const Footer = () => {
       }}
     >
       <Container maxWidth="xl">
-        <Grid container spacing={8} sx={{ mb: 8 }}>
+        <Grid container spacing={8} justifyContent="space-between">
           {/* Brand & Newsletter Section */}
-          <Grid item xs={12} lg={4}>
+          <Grid item xs={12} md={5} lg={4}>
             <Box sx={{ mb: 6 }}>
               <Box sx={{ display: 'flex', alignItems: 'center', mb: 3 }}>
                 <ContentCutIcon sx={{ mr: 1.5, fontSize: 32, color: 'primary.main' }} />
@@ -31,7 +31,7 @@ const Footer = () => {
                   Sona
                 </Typography>
               </Box>
-              <Typography variant="body1" sx={{ mb: 4, maxWidth: 360, lineHeight: 1.7 }}>
+              <Typography variant="body1" sx={{ mb: 4, lineHeight: 1.7, color: 'text.secondary' }}>
                 Elevating the barbershop experience. We connect premium grooming services with clients who value quality and style.
               </Typography>
 
@@ -41,7 +41,7 @@ const Footer = () => {
                 border: '1px solid rgba(255,255,255,0.08)',
                 borderRadius: '16px',
                 display: 'flex',
-                maxWidth: 400
+                maxWidth: '100%'
               }}>
                 <TextField
                   placeholder="Enter your email"
@@ -52,59 +52,77 @@ const Footer = () => {
                     sx: { px: 2, color: 'white' }
                   }}
                 />
-                <Button variant="contained" sx={{ borderRadius: '12px', px: 3, fontWeight: 700 }}>
+                <Button variant="contained" sx={{ borderRadius: '12px', px: 3, fontWeight: 700, minWidth: 'fit-content' }}>
                   Subscribe
                 </Button>
               </Box>
             </Box>
           </Grid>
 
-          {/* Links Sections - Simplified to 3 Columns */}
-          <Grid item xs={12} lg={8}>
-            <Grid container spacing={4}>
-              {/* 2. Explore Column - Centered */}
-              <Grid item xs={12} sm={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', sm: 'center' } }}>
-                <Box>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
-                    Explore
-                  </Typography>
-                  <Stack spacing={2}>
-                    {["Pricing", "Reviews", "FAQ", "Login", "Sign Up"].map((link) => (
-                      <Link
-                        key={link}
-                        component={RouterLink}
-                        to={link === "Reviews" ? "/reviews" : link === "FAQ" ? "/faq" : link === "Pricing" ? "/pricing" : link === "Login" ? "/login" : link === "Sign Up" ? "/signup" : "#"}
-                        underline="none"
-                        sx={{
-                          color: 'text.secondary',
-                          fontSize: '0.95rem',
-                          transition: 'color 0.2s',
-                          '&:hover': { color: 'primary.main' }
-                        }}
-                      >
-                        {link}
-                      </Link>
-                    ))}
-                  </Stack>
-                </Box>
+          {/* Links Sections - Distributed Columns */}
+          <Grid item xs={12} md={7} lg={6}>
+            <Grid container spacing={4} justifyContent={{ md: 'flex-end' }}>
+              {/* 1. Explore Column */}
+              <Grid item xs={6} sm={4}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
+                  Explore
+                </Typography>
+                <Stack spacing={2}>
+                  {["Pricing", "Reviews", "FAQ", "Login", "Sign Up"].map((link) => (
+                    <Link
+                      key={link}
+                      component={RouterLink}
+                      to={link === "Reviews" ? "/reviews" : link === "FAQ" ? "/faq" : link === "Pricing" ? "/pricing" : link === "Login" ? "/login" : link === "Sign Up" ? "/signup" : "#"}
+                      underline="none"
+                      sx={{
+                        color: 'text.secondary',
+                        fontSize: '0.95rem',
+                        transition: 'color 0.2s',
+                        '&:hover': { color: 'primary.main', pl: 0.5 }
+                      }}
+                    >
+                      {link}
+                    </Link>
+                  ))}
+                </Stack>
               </Grid>
 
-              {/* 3. Legal & Connect Column - Right Aligned */}
-              <Grid item xs={12} sm={6} sx={{ display: 'flex', flexDirection: 'column', alignItems: { xs: 'flex-start', sm: 'flex-end' } }}>
-                <Box>
-                  <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem', textAlign: { xs: 'left', sm: 'right' } }}>
-                    Legal
-                  </Typography>
-                  <Stack spacing={2} alignItems={{ xs: 'flex-start', sm: 'flex-end' }}>
-                    <Link component={RouterLink} to="/terms-of-service" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main' } }}>
-                      Terms of Service
-                    </Link>
-                    <Link component={RouterLink} to="/privacy-policy" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main' } }}>
-                      Privacy Policy
-                    </Link>
-                  </Stack>
-                </Box>
+              {/* 2. Legal Column */}
+              <Grid item xs={6} sm={4}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
+                  Legal
+                </Typography>
+                <Stack spacing={2}>
+                  <Link component={RouterLink} to="/terms-of-service" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main', pl: 0.5 }, transition: 'all 0.2s' }}>
+                    Terms of Service
+                  </Link>
+                  <Link component={RouterLink} to="/privacy-policy" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main', pl: 0.5 }, transition: 'all 0.2s' }}>
+                    Privacy Policy
+                  </Link>
+                  <Link component={RouterLink} to="#" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main', pl: 0.5 }, transition: 'all 0.2s' }}>
+                    Cookies
+                  </Link>
+                </Stack>
               </Grid>
+
+              {/* 3. Social/Contact Column */}
+              <Grid item xs={12} sm={4}>
+                <Typography variant="subtitle2" sx={{ fontWeight: 700, color: 'white', mb: 3, textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.75rem' }}>
+                  Connect
+                </Typography>
+                <Stack spacing={2}>
+                  <Link href="#" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main', pl: 0.5 }, transition: 'all 0.2s' }}>
+                    Twitter
+                  </Link>
+                  <Link href="#" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main', pl: 0.5 }, transition: 'all 0.2s' }}>
+                    Instagram
+                  </Link>
+                  <Link href="#" underline="none" sx={{ color: 'text.secondary', fontSize: '0.95rem', '&:hover': { color: 'primary.main', pl: 0.5 }, transition: 'all 0.2s' }}>
+                    LinkedIn
+                  </Link>
+                </Stack>
+              </Grid>
+
             </Grid>
           </Grid>
         </Grid>

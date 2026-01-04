@@ -53,7 +53,7 @@ const Pricing = () => {
           </Typography>
         </Box>
 
-        <Grid container spacing={4} alignItems="flex-end">
+        <Grid container spacing={4} alignItems="flex-end" justifyContent="center">
           {tiers.map((tier) => (
             <Grid item key={tier.title} xs={12} sm={6} md={4}>
               <Paper

@@ -105,22 +105,9 @@ const AdminDashboard = () => {
               System overview and approvals.
             </Typography>
           </Box>
-          <Button
-            component={Link}
-            to="/admin/users"
-            variant="contained"
-            sx={{
-              borderRadius: '12px',
-              px: 4,
-              py: 1.5,
-              boxShadow: '0 8px 16px rgba(245, 158, 11, 0.2)',
-              bgcolor: '#F59E0B',
-              '&:hover': { bgcolor: '#D97706' }
-            }}
-          >
-            Manage Users
-          </Button>
         </Box>
+
+
 
         {error && <Alert severity="error" sx={{ mb: 4, borderRadius: '16px' }}>{error}</Alert>}
 

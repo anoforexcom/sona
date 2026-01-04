@@ -2,7 +2,8 @@
 import React, { useState } from 'react';
 import { useNavigate, Link as RouterLink } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
-import { auth } from '../firebase';
+import { doc, getDoc } from 'firebase/firestore';
+import { auth, db } from '../firebase';
 import {
   Container,
   TextField,
@@ -30,9 +31,37 @@ const Login = () => {
     setLoading(true);
     setError('');
     try {
-      await signInWithEmailAndPassword(auth, email, password);
-      navigate('/dashboard');
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      try {
+        // Fetch user role to determine redirect
+        const userDocRef = doc(db, 'users', user.uid);
+        const userDocSnap = await getDoc(userDocRef);
+
+        if (userDocSnap.exists()) {
+          const role = userDocSnap.data().role;
+
+          if (role === 'admin') {
+            navigate('/admin-dashboard');
+          } else if (role === 'barbershop_owner') {
+            navigate('/owner-dashboard');
+          } else {
+            navigate('/dashboard');
+          }
+        } else {
+          // Document doesn't exist? Default to client dashboard
+          console.warn("User document not found, defaulting to client dashboard.");
+          navigate('/dashboard');
+        }
+      } catch (dbError) {
+        // DB error? authenticate anyway to default dashboard
+        console.error("Error fetching user role, defaulting to dashboard:", dbError);
+        navigate('/dashboard');
+      }
+      setLoading(false); // Set loading to false after successful authentication and navigation
     } catch (err) {
+      // Only show "Failed to log in" if the actual Auth failed (wrong password/email)
       setError('Failed to log in. Please check your email and password.');
       console.error('Error logging in:', err);
       setLoading(false);
@@ -70,7 +99,7 @@ const Login = () => {
         <Paper
           elevation={0}
           sx={{
-            p: 5,
+            p: { xs: 3, sm: 5 },
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',

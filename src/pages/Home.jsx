@@ -21,6 +21,7 @@ import { Link } from 'react-router-dom';
 import SearchIcon from '@mui/icons-material/Search';
 import LocationCityIcon from '@mui/icons-material/LocationCity';
 import StorefrontIcon from '@mui/icons-material/Storefront';
+import BarbershopCard from '../components/BarbershopCard';
 
 
 const Home = () => {
@@ -126,7 +127,8 @@ const Home = () => {
             sx={{
               fontWeight: 900,
               lineHeight: 1.1,
-              letterSpacing: '-2.5px',
+              letterSpacing: { xs: '-1px', md: '-2.5px' },
+              fontSize: { xs: '2.5rem', md: '4rem', lg: '5rem' },
               mb: 3,
               background: 'linear-gradient(to bottom, #fff 30%, #94A3B8 100%)',
               WebkitBackgroundClip: 'text',
@@ -184,77 +186,97 @@ const Home = () => {
         </Container>
       </Box>
 
-      {/* Value Proposition Section */}
-      <Container sx={{ py: 12 }}>
-        <Box sx={{ textAlign: 'center', mb: 10 }}>
-          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>
-            The New Standard in Grooming
-          </Typography>
-          <Typography variant="h6" sx={{ color: 'text.secondary', maxWidth: '800px', mx: 'auto' }}>
-            Whether you're looking for a fresh cut or managing a busy shop, Sona elevates the experience.
-          </Typography>
+      {/* Features Section */}
+      <Container sx={{ py: { xs: 8, md: 12 } }}>
+        <Box sx={{ textAlign: 'center', mb: { xs: 6, md: 8 } }}>
+          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2, fontSize: { xs: '2rem', md: '3rem' } }}>Why Choose Sona?</Typography>
+          <Typography variant="h6" color="text.secondary">Experience the future of grooming.</Typography>
         </Box>
-
         <Grid container spacing={4}>
-          {/* For Clients */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400 }}>
+          {[
+            { title: "Instant Booking", desc: "Book your appointment in seconds, 24/7.", icon: "⚡" },
+            { title: "Top Rated Barbers", desc: "Curated selection of the best professionals.", icon: "⭐" },
+            { title: "Smart Reminders", desc: "Never miss an appointment again.", icon: "🔔" },
+            { title: "Cashless Payment", desc: "Pay securely within the app.", icon: "💳" }
+          ].map((feature, index) => (
+            <Grid item xs={12} sm={6} md={3} key={index}>
+              <Paper sx={{ p: { xs: 3, md: 4 }, height: '100%', borderRadius: '24px', bgcolor: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.05)', textAlign: 'center', transition: 'transform 0.2s', '&:hover': { transform: 'translateY(-5px)' } }}>
+                <Typography variant="h2" sx={{ mb: 2 }}>{feature.icon}</Typography>
+                <Typography variant="h6" sx={{ fontWeight: 700, mb: 1 }}>{feature.title}</Typography>
+                <Typography variant="body2" color="text.secondary">{feature.desc}</Typography>
+              </Paper>
+            </Grid>
+          ))}
+        </Grid>
+      </Container>
+
+      {/* Value Proposition Section (Refactored for robustness) */}
+      <Box sx={{ py: { xs: 8, md: 12 }, bgcolor: 'rgba(255,255,255,0.02)' }}>
+        <Container>
+          <Grid container spacing={{ xs: 6, md: 8 }} alignItems="center">
+            <Grid item xs={12} md={6}>
               <Box
                 component="img"
                 src="https://images.unsplash.com/photo-1599351431202-6e0005fc6df5?q=80&w=2070&auto=format&fit=crop"
+                sx={{ width: '100%', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
                 alt="Client experience"
-                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }}
               />
-              <Box sx={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                p: { xs: 4, md: 6 },
-                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)',
-                zIndex: 2
-              }}>
-                <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: 'white' }}>For Clients</Typography>
-                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', mb: 3 }}>
-                  Find top-rated barbers near you, check real reviews, and book instantly. No phone calls, no waiting.
-                </Typography>
-                <Button component={Link} to="/signup" variant="outlined" sx={{ color: 'white', borderColor: 'white', '&:hover': { bgcolor: 'white', color: 'black' }, width: 'fit-content' }}>
-                  Book Now
-                </Button>
-              </Box>
-            </Box>
+            </Grid>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 3 }}>For Clients</Typography>
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
+                Say goodbye to waiting on hold. Find the perfect barber, check their real-time availability, and book instantly.
+                Read verified reviews and browse portfolios to ensure you get the style you want.
+              </Typography>
+              <Button component={Link} to="/signup" variant="contained" size="large" sx={{ px: 4, py: 1.5, borderRadius: '12px' }}>
+                Book Your Cut
+              </Button>
+            </Grid>
           </Grid>
 
-          {/* For Barbershops */}
-          <Grid item xs={12} md={6}>
-            <Box sx={{ position: 'relative', borderRadius: '32px', overflow: 'hidden', height: 400 }}>
+          <Grid container spacing={8} alignItems="center" sx={{ mt: 8, flexDirection: { xs: 'column-reverse', md: 'row' } }}>
+            <Grid item xs={12} md={6}>
+              <Typography variant="h3" sx={{ fontWeight: 800, mb: 3 }}>For Barbershops</Typography>
+              <Typography variant="h6" color="text.secondary" sx={{ mb: 4, lineHeight: 1.6 }}>
+                Stop chasing no-shows and managing a paper calendar. Sona gives you powerful tools to manage your schedule,
+                showcase your work, and grow your clientele effortlessly.
+              </Typography>
+              <Button component={Link} to="/signup" variant="outlined" size="large" sx={{ px: 4, py: 1.5, borderRadius: '12px' }}>
+                Join as a Partner
+              </Button>
+            </Grid>
+            <Grid item xs={12} md={6}>
               <Box
                 component="img"
                 src="https://images.unsplash.com/photo-1585747833206-75b1d8a1d4b3?q=80&w=2070&auto=format&fit=crop"
+                sx={{ width: '100%', borderRadius: '32px', boxShadow: '0 20px 40px rgba(0,0,0,0.5)' }}
                 alt="Barbershop management"
-                sx={{ width: '100%', height: '100%', objectFit: 'cover', filter: 'brightness(0.6)' }}
               />
-              <Box sx={{
-                position: 'absolute',
-                inset: 0,
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'flex-end',
-                p: { xs: 4, md: 6 },
-                background: 'linear-gradient(to top, rgba(0,0,0,0.8) 0%, transparent 100%)',
-                zIndex: 2
-              }}>
-                <Typography variant="h4" sx={{ fontWeight: 800, mb: 2, color: 'white' }}>For Barbershops</Typography>
-                <Typography variant="body1" sx={{ color: 'rgba(255,255,255,0.9)', fontSize: '1.1rem', mb: 3 }}>
-                  Streamline your schedule, grow your clientele, and reduce no-shows. Manage your business from anywhere.
-                </Typography>
-                <Button component={Link} to="/signup" variant="outlined" sx={{ color: 'white', borderColor: 'white', '&:hover': { bgcolor: 'white', color: 'black' }, width: 'fit-content' }}>
-                  Register Shop
-                </Button>
-              </Box>
-            </Box>
+            </Grid>
           </Grid>
+        </Container>
+      </Box>
+
+      {/* How It Works Section */}
+      <Container sx={{ py: 12 }}>
+        <Box sx={{ textAlign: 'center', mb: 10 }}>
+          <Typography variant="h3" sx={{ fontWeight: 800, mb: 2 }}>How It Works</Typography>
+          <Typography variant="h6" color="text.secondary">Simple steps to your best look.</Typography>
+        </Box>
+        <Grid container spacing={4} sx={{ textAlign: 'center' }}>
+          {[
+            { step: "01", title: "Search", desc: "Find top barbers in your area." },
+            { step: "02", title: "Choose", desc: "Select a time that works for you." },
+            { step: "03", title: "Book", desc: "Confirm instantly and relax." }
+          ].map((item, index) => (
+            <Grid item xs={12} sm={4} key={index}>
+              <Box sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', height: '100%' }}>
+                <Typography variant="h1" sx={{ color: 'rgba(255,255,255,0.1)', fontWeight: 900, fontSize: '6rem', lineHeight: 1 }}>{item.step}</Typography>
+                <Typography variant="h5" sx={{ fontWeight: 700, mt: -2, mb: 1, position: 'relative' }}>{item.title}</Typography>
+                <Typography color="text.secondary" sx={{ maxWidth: '250px' }}>{item.desc}</Typography>
+              </Box>
+            </Grid>
+          ))}
         </Grid>
       </Container>
 
@@ -323,69 +345,7 @@ const Home = () => {
         <Grid container spacing={4}>
           {barbershops.map((barbershop) => (
             <Grid item key={barbershop.id} xs={12} sm={6} md={4} >
-              <Card sx={{
-                height: '100%',
-                display: 'flex',
-                flexDirection: 'column',
-                transition: 'all 0.3s cubic-bezier(0.4, 0, 0.2, 1)',
-                bgcolor: 'background.paper',
-                borderRadius: '24px',
-                overflow: 'hidden',
-                '&:hover': {
-                  transform: 'translateY(-12px)',
-                  borderColor: 'primary.main',
-                  boxShadow: '0 20px 40px rgba(0,0,0,0.4)',
-                },
-              }}>
-                <Box sx={{ position: 'relative' }}>
-                  <CardMedia
-                    component="img"
-                    height="240"
-                    image={barbershop.imageUrl || 'https://images.unsplash.com/photo-1503951914875-452162b0f3f1?q=80&w=2070&auto=format&fit=crop'}
-                    alt={barbershop.name}
-                    sx={{ filter: 'brightness(0.9)' }}
-                  />
-                  <Box sx={{
-                    position: 'absolute',
-                    top: 16,
-                    right: 16,
-                    bgcolor: 'rgba(0,0,0,0.6)',
-                    backdropFilter: 'blur(8px)',
-                    px: 1.5, py: 0.5,
-                    borderRadius: '10px',
-                    border: '1px solid rgba(255,255,255,0.1)'
-                  }}>
-                    <Typography variant="caption" sx={{ color: 'white', fontWeight: 700 }}>PREMIUM</Typography>
-                  </Box>
-                </Box>
-                <CardContent sx={{ flexGrow: 1, p: 3 }}>
-                  <Typography gutterBottom variant="h5" sx={{ fontWeight: 800, mb: 1 }}>
-                    {barbershop.name}
-                  </Typography>
-                  <Box sx={{ display: 'flex', alignItems: 'center', color: 'text.secondary', gap: 1 }}>
-                    <LocationCityIcon sx={{ fontSize: '1rem', color: 'primary.main' }} />
-                    <Typography variant="body2" sx={{ fontWeight: 500 }}>
-                      {barbershop.city}
-                    </Typography>
-                  </Box>
-                </CardContent>
-                <Box sx={{ p: 3, pt: 0 }}>
-                  <Button
-                    component={Link}
-                    to={`/barbershop/${barbershop.id}`}
-                    variant="contained"
-                    fullWidth
-                    sx={{
-                      borderRadius: '14px',
-                      py: 1.5,
-                      boxShadow: 'none',
-                      '&:hover': { boxShadow: '0 4px 12px rgba(59, 130, 246, 0.3)' }
-                    }}
-                  >
-                    View Details
-                  </Button>
-                </Box>
-              </Card>
+              <BarbershopCard barbershop={barbershop} />
             </Grid>
           ))}
         </Grid>

@@ -114,7 +114,7 @@ const AdminUsers = () => {
           border: '1px solid rgba(255, 255, 255, 0.08)',
           overflow: 'hidden'
         }}>
-          <TableContainer>
+          <TableContainer sx={{ overflowX: 'auto' }}>
             <Table>
               <TableHead>
                 <TableRow sx={{ bgcolor: 'rgba(255,255,255,0.02)' }}>

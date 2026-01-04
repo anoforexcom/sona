@@ -5,8 +5,8 @@ import { collection, query, where, getDocs } from 'firebase/firestore';
 import { db } from '../firebase';
 import { Container, Typography, Box, CircularProgress, Alert, Button, Grid, Paper, List, ListItem, ListItemText, Tabs, Tab } from '@mui/material';
 import { Link } from 'react-router-dom';
-import ServiceManager from '../components/ServiceManager.jsx';
-import BookingList from '../components/BookingList.jsx';
+// import ServiceManager from '../components/ServiceManager.jsx'; // Moved to /owner/services
+// import BookingList from '../components/BookingList.jsx'; // Moved to /owner/appointments
 
 const BarbershopOwnerDashboard = () => {
   const { currentUser } = useAuth();
@@ -86,91 +86,11 @@ const BarbershopOwnerDashboard = () => {
 
         {barbershop && (
           <Grid container spacing={4}>
-            <Grid item xs={12} md={7}>
-              {isPreview ? (
-                <Paper sx={{
-                  p: 4,
-                  borderRadius: '24px',
-                  bgcolor: 'rgba(18, 18, 20, 0.6)',
-                  backdropFilter: 'blur(20px)',
-                  border: '1px solid rgba(255, 255, 255, 0.08)',
-                }}>
-                  <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>
-                    <Typography variant="h5" sx={{ fontWeight: 800 }}>Services</Typography>
-                    <Button variant="contained" sx={{ borderRadius: '10px' }}>New Service</Button>
-                  </Box>
-                  <List sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
-                    {[
-                      { name: "Haircut", info: "30 min - $25" },
-                      { name: "Beard Trim", info: "20 min - $15" }
-                    ].map((svc, i) => (
-                      <ListItem key={i} sx={{
-                        bgcolor: 'rgba(255,255,255,0.03)',
-                        borderRadius: '16px',
-                        border: '1px solid rgba(255,255,255,0.05)',
-                        p: 2
-                      }}>
-                        <ListItemText
-                          primary={<Typography sx={{ fontWeight: 700 }}>{svc.name}</Typography>}
-                          secondary={<Typography variant="body2" sx={{ color: 'text.secondary' }}>{svc.info}</Typography>}
-                        />
-                      </ListItem>
-                    ))}
-                  </List>
-                </Paper>
-              ) : (
-                <Box sx={{
-                  '& > div': {
-                    borderRadius: '24px !important',
-                    bgcolor: 'rgba(18, 18, 20, 0.6) !important',
-                    backdropFilter: 'blur(20px) !important',
-                    border: '1px solid rgba(255, 255, 255, 0.08) !important',
-                    p: 3
-                  }
-                }}>
-                  <ServiceManager barbershopId={barbershop.id} />
-                </Box>
-              )}
-            </Grid>
-
-            <Grid item xs={12} md={5}>
-              <Paper sx={{
-                p: 4,
-                borderRadius: '24px',
-                bgcolor: 'rgba(18, 18, 20, 0.4)',
-                backdropFilter: 'blur(20px)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-                height: '100%'
-              }}>
-                <Typography variant="h5" sx={{ fontWeight: 800, mb: 4 }}>
-                  Appointments
-                </Typography>
-
-                {isPreview ? (
-                  <Box>
-                    <Box sx={{ borderBottom: 1, borderColor: 'rgba(255,255,255,0.05)', mb: 3 }}>
-                      <Tabs value={0} variant="fullWidth" sx={{ '& .MuiTab-root': { fontWeight: 700 } }}>
-                        <Tab label="Upcoming" />
-                        <Tab label="Past" />
-                      </Tabs>
-                    </Box>
-                    <List>
-                      <ListItem sx={{
-                        bgcolor: 'rgba(59, 130, 246, 0.05)',
-                        borderRadius: '16px',
-                        border: '1px solid rgba(59, 130, 246, 0.2)',
-                        p: 2
-                      }}>
-                        <ListItemText
-                          primary={<Typography sx={{ fontWeight: 700 }}>John Doe</Typography>}
-                          secondary="Tomorrow at 10:00 - Haircut"
-                        />
-                      </ListItem>
-                    </List>
-                  </Box>
-                ) : (
-                  <BookingList userType="barbershop" userId={barbershop.id} />
-                )}
+            {/* Quick Actions / Summary Placeholders */}
+            <Grid item xs={12}>
+              <Paper sx={{ p: 4, bgcolor: 'background.paper', borderRadius: 2 }}>
+                <Typography variant="h6">Overview coming soon...</Typography>
+                <Typography>Use the sidebar to manage Services, Staff, and Appointments.</Typography>
               </Paper>
             </Grid>
           </Grid>
